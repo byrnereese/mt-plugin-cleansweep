@@ -1,0 +1,33 @@
+.broken-links-widget table {
+	width: 100%;
+}
+
+.broken-links-widget th {
+	font-weight: bold;
+	padding: 2px;
+}
+
+.broken-links-widget td {
+	padding: 2px;
+}
+.broken-links-widget table tr.odd {
+	background-color: #F3F6F9;
+}
+
+#rules {
+	width: 590px;
+	height: 330px;
+	background: white;
+	overflow: auto;
+	padding: 10px 10px 0 10px;
+	border: 1px solid #CCCCCC;
+}
+
+.radio, .radio-label { float: left; }
+.radio-option { margin: 10px 0 20px 0; }
+.radio-label { font-weight: bold; }
+.radio-label input { font-weight: normal; }
+.radio { padding: 2px 5px 0px 0px; } 
+#radios {
+	margin-left: 25px;
+}

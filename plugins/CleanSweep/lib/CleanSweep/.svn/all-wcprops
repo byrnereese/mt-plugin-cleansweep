@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/mtplugins/!svn/ver/1467/trunk/CleanSweep/plugins/CleanSweep/lib/CleanSweep
+END
+Plugin.pm
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/mtplugins/!svn/ver/1372/trunk/CleanSweep/plugins/CleanSweep/lib/CleanSweep/Plugin.pm
+END
+Log.pm
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/mtplugins/!svn/ver/311/trunk/CleanSweep/plugins/CleanSweep/lib/CleanSweep/Log.pm
+END
+CMS.pm
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/mtplugins/!svn/ver/1467/trunk/CleanSweep/plugins/CleanSweep/lib/CleanSweep/CMS.pm
+END

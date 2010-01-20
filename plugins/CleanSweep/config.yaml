@@ -1,0 +1,61 @@
+version: 1.17
+id: CleanSweep
+name: Clean Sweep
+description: Clean Sweep is a plugin that helps administrators manage broken links on their blog, automatically correct the error if possible and then generate mod_rewrite rules to help correct the problem permanently.
+author_name: Byrne Reese
+author_link: http://www.majordojo.com/
+plugin_link: http://www.majordojo.com/projects/cleansweep.php
+object_types:
+    cleansweep.log: CleanSweep::Log
+schema_version: 0.17
+blog_config_template: 
+  code: '$CleanSweep::CleanSweep::Plugin::blogconf_template'
+settings: 
+  404url:
+    default: ''
+    scope: blog
+  webserver: 
+    default: apache
+    scope: blog
+  oldsiteroot:
+    default: ''
+    scope: blog
+  copyto:
+    default: ''
+    scope: blog
+
+applications:
+  cms:
+    widgets:
+      broken_links:
+        label: 'Broken Link Report'
+        code: '$CleanSweep::CleanSweep::CMS::widget_links'
+        template: 'widget/404s.tmpl'
+        set: 'sidebar'
+        singular: 1
+    methods:
+      404:
+        code: '$CleanSweep::CleanSweep::CMS::report'
+        requires_login: 0
+      list_404s: '$CleanSweep::CleanSweep::CMS::list_404'
+      reset_404: '$CleanSweep::CleanSweep::CMS::reset'
+      itemset_reset_404s: '$CleanSweep::CleanSweep::CMS::itemset_reset_404s'
+      delete_404: '$CleanSweep::CleanSweep::CMS::delete'
+      itemset_delete_404s: '$CleanSweep::CleanSweep::CMS::itemset_delete_404s'
+      map_404: '$CleanSweep::CleanSweep::CMS::map'
+      save_404_map: '$CleanSweep::CleanSweep::CMS::save_map'
+      rewrite_rules: '$CleanSweep::CleanSweep::CMS::rules'
+    page_actions:
+      list_404s:
+        generate_rewrite:
+          label: 'Generate Rewrite Rules'
+          order: 100
+          dialog: 'rewrite_rules'
+    menus:
+      manage:missing_links:
+        label: '404s'
+        order: 4500
+        mode: 'list_404s'
+        view: blog
+
+

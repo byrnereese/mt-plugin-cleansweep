@@ -1,0 +1,21 @@
+
+<mtapp:widget id="404s" class="broken-links-widget" label="<__trans phrase="Top Broken Links">" can_close="1">
+  <table>
+    <tr>
+      <th>&nbsp;</th>
+      <th>URI</th>
+      <th>Count</th>
+    </tr>
+<mt:loop name="object_loop">
+    <tr class="<mt:if name="__odd__">odd<mt:else></mt:if>">
+      <td><mt:var name="count" />.</td>
+      <td>
+           <mt:if name="uri_short">...<mt:var name="uri_short" escape="html">
+           <mt:else><mt:var name="uri" /></mt:if>
+      </td>
+      <td><mt:var name="occur" /></td>
+    </tr>
+</mt:loop>
+  </table>
+  <p><a href="?__mode=list_404s&blog_id=<mt:var name="blog_id" />">View entire list</a></p>
+</mtapp:widget>

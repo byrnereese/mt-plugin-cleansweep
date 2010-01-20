@@ -1,0 +1,35 @@
+<mt:setvarblock name="page_title"><__trans phrase="Apache Rewrite Rules"></mt:setvarblock>
+<mt:setvarblock name="html_head" append="1">
+<link rel="stylesheet" href="<mt:var name="static_uri">plugins/CleanSweep/styles/app.css" type="text/css" />
+</mt:setvarblock>
+<mt:include name="dialog/header.tmpl">
+<p>Add the the following to your web server's configuration file:</p>
+<div id="rules">
+<mt:if name="webserver" eq="apache">
+  <code><pre>
+# BEGIN CleanSweep Apache Rewrite Rules<mt:loop name="object_loop"><mt:if name="has_mapping">
+RewriteRule ^/<mt:var name="uri"> <mt:var name="map" /> [L,<mt:var name="redir_code">]</mt:if></mt:loop>
+# END CleanSweep Rewrite Rules
+  </pre></code>
+<mt:else name="webserver" eq="lighttpd">
+  <code><pre>
+# BEGIN CleanSweep Lighttpd Rewrite Rules
+url.redirect = (<mt:loop name="object_loop"><mt:if name="has_mapping">
+    "^/<mt:var name="uri">" => "<mt:var name="map" />"<mt:unless name="__last__">,</mt:unless></mt:if></mt:loop>
+)
+# END CleanSweep Rewrite Rules
+  </pre></code>
+</mt:if>
+</div>
+<div class="actions-bar">
+    <div class="actions-bar-inner pkg actions">
+        <button
+            onclick="closeDialog(); return false"
+            type="submit"
+            accesskey="x"
+            title="<__trans phrase="Done (x)">"
+            ><__trans phrase="Done"></button>
+    </div>
+</div>
+
+<mt:include name="dialog/footer.tmpl">

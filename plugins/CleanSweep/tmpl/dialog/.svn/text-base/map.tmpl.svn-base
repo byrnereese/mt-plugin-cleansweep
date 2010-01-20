@@ -1,0 +1,82 @@
+<mt:setvarblock name="page_title"><__trans phrase="Map 404 to Destination"></mt:setvarblock>
+<mt:setvarblock name="html_head" append="1">
+<link rel="stylesheet" href="<mt:var name="static_uri">plugins/CleanSweep/styles/app.css" type="text/css" />
+</mt:setvarblock>
+<mt:include name="dialog/header.tmpl">
+<form method="post" action="<mt:var name="script_url">" target="_top">
+<input type="hidden" name="__mode" value="save_404_map" />
+<input type="hidden" name="blog_id" value="<mt:var name="blog_id">" />
+<input type="hidden" name="id" value="<mt:var name="id">" />
+
+<mtapp:setting
+    id="uri"
+    label_class="top-label"
+    label="<__trans phrase="Source URL">"
+    hint="This is the URL you wish to have redirected."
+    show_hint="0">
+  <mt:var name="base_url" /><mt:var name="uri" />
+</mtapp:setting>
+
+<mtapp:setting
+    id="redir"
+    label_class="top-label"
+    label="<__trans phrase="Mapping">"
+    hint="Enter in the full URL that you would like this URI to be redirected to."
+    show_hint="0">
+  <div id="radios">
+  <div class="radio-option pkg">
+    <div class="radio">
+      <input id="url" type="radio" name="return_code" value="301" <mt:if name="return_code" eq="301">checked="1"</mt:if> />
+    </div>
+    <div class="radio-label">
+      <label for="url">Redirect to URL</label>:
+      <input id="url-text" type="text" name="destination" value="<mt:var name="map" />" size="50" />
+    </div>
+  </div>  
+  <div class="radio-option pkg">
+    <div class="radio">
+      <input id="gone" type="radio" name="return_code" value="410" <mt:if name="return_code" eq="410">checked="1"</mt:if> /> 
+    </div>
+    <div class="radio-label">
+      <label for="gone">Resource Permanently Removed</label>
+    </div>
+  </div>  
+  <div class="radio-option pkg">
+    <div class="radio">
+      <input id="forbid" type="radio" name="return_code" value="403" <mt:if name="return_code" eq="403">checked="1"</mt:if> />
+    </div>
+    <div class="radio-label">
+       <label for="forbid">Resource Forbidden</label>
+    </div>
+  </div>  
+<mt:if name="is_mapped">
+  <div class="radio-option pkg">
+    <div class="radio">
+      <input id="unmap" type="radio" name="return_code" value="" />
+    </div>
+    <div class="radio-label">
+       <label for="unmap">Remove Mapping</label>
+    </div>
+  </div> 
+</mt:if> 
+  </div> 
+</mtapp:setting>
+
+<div class="actions-bar">
+    <div class="actions-bar-inner pkg actions">
+        <button
+            type="submit"
+            accesskey="s"
+            title="<__trans phrase="Continue">"
+            class="primary-button"
+            ><__trans phrase="Continue"></button>
+        <button
+            onclick="closeDialog(); return false"
+            type="submit"
+            accesskey="x"
+            title="<__trans phrase="Cancel (x)">"
+            ><__trans phrase="Cancel"></button>
+    </div>
+</div>
+</form>
+<mt:include name="dialog/footer.tmpl">

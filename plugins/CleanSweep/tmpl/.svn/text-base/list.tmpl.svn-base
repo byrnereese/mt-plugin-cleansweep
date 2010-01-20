@@ -1,0 +1,112 @@
+<mt:setvar name="page_title" value="<__trans phrase="Logged 404s">">
+<mt:ignore>
+<mt:setvarblock name="action_buttons">
+    <mt:if name="is_administrator">
+    <a href="javascript:void(0)"
+        onclick="doRemoveItems(getByID('<$mt:var name="object_type"$>-listing-form'), '<__trans phrase="blog" escape="js">', '<__trans phrase="blogs" escape="js">'); return false;"
+        accesskey="x"
+        title="<__trans phrase="Delete selected URIs (x)">"
+        ><__trans phrase="Delete"></a>
+    </mt:if>
+</mt:setvarblock>
+</mt:ignore>
+<mt:setvarblock name="related_content">
+    <mt:include name="include/display_options.tmpl" />
+    <mtapp:PageActions />
+</mt:setvarblock>
+<mt:setvarblock name="html_head" append="1">
+    <script type="text/javascript">
+    <!--
+    var tableSelect;
+    function init()
+    {
+    	// setup
+    	tableSelect = new TC.TableSelect( "cleansweep.log-listing-table" );
+    	tableSelect.rowSelect = true;
+    }
+    TC.attachLoadEvent( init );
+    //-->
+    </script> 
+</mt:setvarblock>
+<mt:setvarblock name="system_msg">
+    <mt:if name="uri_reset">
+        <mtapp:statusmsg
+            id="message"
+            class="success">
+            <__trans phrase="The URI you selected has been reset.">
+        </mtapp:statusmsg>
+    </mt:if>
+    <mt:if name="map_saved">
+        <mtapp:statusmsg
+            id="message"
+            class="success">
+            <__trans phrase="The selected URI has been successfully mapped to a new URL.">
+        </mtapp:statusmsg>
+    </mt:if>
+</mt:setvarblock>
+<mt:setvarblock name="action_buttons">
+    <a href="javascript:void(0)"
+        onclick="if (confirm('Reset selected 404s?')) doForMarkedInThisWindow(getByID('cleansweep.log-listing-form'), '<__trans phrase="404">', '<__trans phrase="404s">', 'id', 'itemset_reset_404s'); return false"
+        accesskey="r"
+        title="<__trans phrase="Reset selected 404s (r)">"
+        ><__trans phrase="Reset "></a>
+    <a href="javascript:void(0)"
+        onclick="if (confirm('Clear selected 404s?')) doForMarkedInThisWindow(getByID('cleansweep.log-listing-form'), '<__trans phrase="404">', '<__trans phrase="404s">', 'id', 'itemset_delete_404s'); return false"
+        accesskey="d"
+        title="<__trans phrase="Clear selected 404s (h)">"
+        ><__trans phrase="Clear"></a>
+</mt:setvarblock>
+<$mt:include name="include/header.tmpl"$>
+<mtapp:listing type="cleansweep.log">
+    <mt:if name="__first__">
+    <thead>
+        <tr>
+            <th class="cb"><input type="checkbox" name="id-head" value="all" class="select" /></th>
+            <th id="l-uri"><__trans phrase="URI"></th>
+            <th id="l-cnt"><__trans phrase="Count"></th>
+            <th id="l-mod"><__trans phrase="Last Req."></th>
+            <th id="l-act"></th>
+        </tr>
+    </thead>
+    <tbody>
+    </mt:if>
+        <tr class="<mt:if name="__odd__">odd<mt:else>even</mt:if>">
+            <td class="cb"><input type="checkbox" name="id" value="<mt:var name="id">" class="select" /></td>
+            <td>
+                <mt:if name="uri_short">...<mt:var name="uri_short" escape="html">
+                <mt:else><mt:var name="uri_long" />
+                </mt:if>
+            </td>
+            <td><mt:var name="count" escape="html"></td>
+            <td>
+            <mt:if name="created_on_relative">
+                <mt:if name="dates_relative">
+                        <$mt:var name="created_on_relative"$>
+                <mt:else>
+                        <$mt:var name="created_on_formatted"$>
+                </mt:if>
+            <mt:else>
+                        <$mt:var name="created_on_formatted"$>
+            </mt:if>
+            </td>
+            <td>
+                <a href="javascript:void(0)" onclick="openDialog(null,'map_404','&id=<mt:var name="id" />&blog_id=<mt:var name="blog_id" />'); return false">Map</a> |
+                <a href="?__mode=reset_404&id=<mt:var name="id" />&blog_id=<mt:var name="blog_id" />">Reset</a>
+            </td>
+        </tr>
+    <mt:if name="is_mapped">
+        <tr class="<mt:if name="__odd__">odd<mt:else>even</mt:if>">
+            <td>&nbsp;</td>
+            <td colspan="4">
+                Mapped to:
+                <mt:if name="return_code" eq="301"><mt:var name="map" /></mt:if>
+                <mt:if name="return_code" eq="410">Permanently Removed</mt:if>
+                <mt:if name="return_code" eq="403">Forbidden</mt:if>
+            </td>
+        </tr>
+    </mt:if>
+    <mt:if name="__last__">
+    </tbody>
+    </mt:if>
+</mtapp:listing>
+<$mt:include name="include/footer.tmpl"$>
